@@ -190,10 +190,21 @@ def main(argv):
     np.save('cluster_assignments.npy', clusters)
     print("Cluster assignments saved to cluster_assignments.npy")
 
-    # Print cluster assignments
-    print("Cluster Assignments:")
-    for node, cluster in enumerate(clusters):
-        print(f"Node {node}: Cluster {cluster}")
+    # Prints some metrics used in the paper, only if labels and label_indices are present
+
+    print('Conductance:', metrics.conductance(adjacency, clusters))
+    print('Modularity:', metrics.modularity(adjacency, clusters))
+    # if labels is not None and label_indices is not None:    
+    #     print(
+    #         'NMI:',
+    #         sklearn.metrics.normalized_mutual_info_score(
+    #             labels, clusters[label_indices], average_method='arithmetic'))
+    #     precision = metrics.pairwise_precision(labels, clusters[label_indices])
+    #     recall = metrics.pairwise_recall(labels, clusters[label_indices])
+    #     print('F1:', 2 * precision * recall / (precision + recall))
+
+    # else :
+    #     print("There is no labels")
 
 
 if __name__ == '__main__':
